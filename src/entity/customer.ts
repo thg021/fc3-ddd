@@ -1,15 +1,16 @@
 //Sempre vai auto validar
 
+import Address from "./andress";
+
 export default class Customer {
   _id: string;
   _name: string;
-  _address: string;
+  _address!: Address;
   _active: boolean = true;
 
-  constructor(id: string, name: string, address?: string) {
+  constructor(id: string, name: string) {
     this._id = id;
     this._name = name;
-    this._address = address || "";
   }
 
   //alteração da propriedade sem expressividade, estar aqui por estar
@@ -28,5 +29,9 @@ export default class Customer {
 
   deactivate() {
     this._active = false;
+  }
+
+  set andress(address: Address) {
+    this._address = address;
   }
 }
