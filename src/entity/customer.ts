@@ -31,7 +31,7 @@ export default class Customer {
     this._active = false;
   }
 
-  set andress(address: Address) {
+  set address(address: Address) {
     this._address = address;
   }
 }
