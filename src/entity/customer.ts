@@ -3,35 +3,54 @@
 import Address from "./andress";
 
 export default class Customer {
-  _id: string;
-  _name: string;
-  _address!: Address;
-  _active: boolean = true;
+    private _id: string;
+    private _name: string;
+    private _address!: Address;
+    private _active: boolean = false;
 
-  constructor(id: string, name: string) {
-    this._id = id;
-    this._name = name;
-  }
+    constructor(id: string, name: string) {
+        this._id = id;
+        this._name = name;
+        this.validate();
+    }
 
-  //alteração da propriedade sem expressividade, estar aqui por estar
-  public set name(v: string) {
-    this._name = v;
-  }
+    validate() {
+        if (this._name.length === 0) {
+            throw new Error("Name is required!");
+        }
 
-  //Um regra especifica que o sistema tem para alterar o nome.
-  changeName(name: string) {
-    this._name = name;
-  }
+        if (this._id.length === 0) {
+            throw new Error("Id is required!");
+        }
+    }
 
-  activate() {
-    this._active = true;
-  }
+    //Um regra especifica que o sistema tem para alterar o nome.
+    changeName(name: string) {
+        this._name = name;
+        this.validate();
+    }
 
-  deactivate() {
-    this._active = false;
-  }
+    activate() {
+        if (this._address === undefined) {
+            throw new Error("Address is required to activate a customer");
+        }
 
-  set address(address: Address) {
-    this._address = address;
-  }
+        this._active = true;
+    }
+
+    deactivate() {
+        this._active = false;
+    }
+
+    isActive() {
+        return this._active;
+    }
+
+    set address(address: Address) {
+        this._address = address;
+    }
+
+    get name() {
+        return this._name;
+    }
 }
